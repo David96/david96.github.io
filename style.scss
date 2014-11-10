@@ -43,16 +43,20 @@ header {
 #menu {
     position: fixed;
     top: 0px;
-    left: -50%;
-    width: 50%;
+    left: -100%;
+    width: 100%;
     height: 100%;
     background-color: $darkgray;
     transition: all 0.5s;
     box-shadow: 0 0 0 0 black;
     z-index: 100;
 }
-@media (orientation: portrait) {
-    #menu { width: 100%; left: -100%; }
+@media (orientation: landscape) {
+    #menuchk:checked ~ #menubtn {
+        width: 50%;
+        height: 100%;
+    }
+    #menu { width: 50%; left: -50%; }
 }
 #menubtn {
     display: block;
@@ -94,6 +98,7 @@ header {
     transition: all 0.5s cubic-bezier(1,.01,1,.01);
 }
 #menuchk:checked ~ #menubtn #hamburger:before {
+    background-color: $white;
     transform: rotate(45deg);
     width: 25px;
     left: 14px;
@@ -101,8 +106,10 @@ header {
 }
 #menuchk:checked ~ #menubtn #hamburger {
     transform: rotate(180deg);
+    background-color: $white;
 }
 #menuchk:checked ~ #menubtn #hamburger:after {
+    background-color: $white;
     transform: rotate(-45deg);
     width: 25px;
     left: 14px;
@@ -113,16 +120,16 @@ header {
     box-shadow: 0 0 5px 0 black;
 }
 #menuchk:checked ~ #menubtn {
-    left: 50%;
+    left: 0;
+    z-index: 200;
 }
-@media (orientation: portrait) {
+@media (orientation: landscape) {
     #menuchk:checked ~ #menubtn {
-        left: 0;
-        z-index: 200;
+        left: 50%;
     }
     #menuchk:checked ~ #menubtn #hamburger, #menuchk:checked ~ #menubtn #hamburger:before,
         #menuchk:checked ~ #menubtn #hamburger:after {
-        background-color: $white;
+        background-color: black;
     }
 }
 #menu ul {
