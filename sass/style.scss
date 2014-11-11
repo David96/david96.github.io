@@ -15,6 +15,9 @@ body {
     color: $textcolor;
     font-family: Roboto;
 }
+a {
+    text-decoration: none;
+}
 header {
     position: fixed;
     top: 0;
@@ -156,15 +159,13 @@ nav {
 }
 
 #content {
-    position: relative;
     padding-top: 60px;
 
-    .heading {
+    h2 {
         display: block;
         position: sticky;
         position: -webkit-sticky;
         margin: 0;
-        top: -70px;
         left: 0;
         padding: 40px 5px;
         color: $white;
@@ -173,31 +174,48 @@ nav {
         font-size: 3em;
         @include transition(all 0.5s);
     }
-    h1.heading {
+    #h1 {
         background-color: nth($colors, 2);
+        top: -70px;
+        z-index: 30;
     }
-    h2.heading {
+    #h2 {
         background-color: nth($colors, 3);
+        top: -57px;
+        z-index: 20;
     }
-    h3.heading {
+    #h3 {
         background-color: nth($colors, 4);
-    }
-    @media (max-width: 32.5em) {
-        h1.heading { top: -134px; }
-    }
-    @media (max-width: 25.7em) {
-        h2.heading { top: -134px; }
-    }
-    @media (max-width: 26.5em) {
-        h3.heading { top: -134px; }
-    }
-    .heading:hover {
-        top: 60px;
+        top: -44px;
         z-index: 10;
+    }
+    #h1:hover, #h2:hover, #h3:hover {
+        top: 60px;
     }
     section {
         padding: 20px 30px;
         font-size: 1.5em;
         text-align: justify;
+    }
+    /* Very tricky way to position the section under the header when clicking on a link */
+    section p:before {
+        content: ' ';
+        display: block;
+        height: 250px;
+        margin-top: -250px;
+        visibility: hidden;
+    }
+    /* At some point, there's a linebreak in the header. Therefore it's top value has to change */
+    @media (max-width: 32.5em) {
+        #h1 { top: -134px; }
+        #s1:before { height: 310px; margin-top: -310px; }
+    }
+    @media (max-width: 25.7em) {
+        #h2 { top: -121px; }
+        #s2:before { height: 310px; margin-top: -310px; }
+    }
+    @media (max-width: 26.5em) {
+        #h3 { top: -108px; }
+        #s3:before { height: 310px; margin-top: -310px; }
     }
 }
