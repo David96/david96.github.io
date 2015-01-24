@@ -1,46 +1,68 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Material Design</title>
+        <title>WhatsAppMD Material Dark Mod</title>
         <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>
     <body>
         <header>
+            WhatsAppMD Material Dark Mod
         </header>
         <nav>
-            <input type="checkbox" id="menuchk" />
-            <label for="menuchk" id="menubtn"><div id="hamburger"></div></label>
-            <div id="menu">
-                <h2>Navigation</h2>
+            <a id="nav" href="#nav" class="menubtn"></a>
+            <div class="hamburger"></div>
+            <div class="menu">
+                <h2><a href="#">Navigation</a></h2>
                 <ul>
-                    <li><a href="#">Item 1</a></li>
-                    <li><a href="#">Test entry</a></li>
-                    <li><a href="#">and another very long test entry</a></li>
-                    <li><a href="#">Item 4</a></li>
-                    <li><a href="#">Item 5</a></li>
+                    <li><a href="#screens">Screenshots</a></li>
+                    <li><a href="#downloads">Downloads</a></li>
+                    <li><a href="#changelog">Changelog</a></li>
                 </ul>
             </div>
         </nav>
-        <div id="content">
-            <a href="#s1"><h2 id="h1">Material Design FTW!</h2></a>
+        <div class="wrapper">
+            <a href="#screens"><h2>Screenshots</h2></a>
             <section>
-                <p id="s1">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                </p>
+                <div class="content" id="screens">
+                    <div id="slider"></div>
+                    <script src="/scripts/slider.js"></script>
+                    <script type="text/javascript">
+                        slider.init(document.getElementById("slider"),
+                            [{ name: "Screenshots", images: ["/images/screen1.png", "/images/screen2.png",
+                                    "/images/screen3.png", "/images/screen4.png"] }]);
+                    </script>
+                </div>
             </section>
-            <a href="#s2"><h2 id="h2">Another Section!</h2></a>
+            <a href="#downloads"><h2>Downloads</h2></a>
             <section>
-                <p id="s2">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                </p>
+                <div class="content" id="downloads">
+                    <ul>
+                        <li>v0.992: <a href="https://github.com/David96/WAMD/releases/download/v0.992/WhatsApp.apk">WhatsApp.apk</a></li>
+                        <li>v0.991: <a href="https://github.com/David96/WAMD/releases/download/v0.991/WhatsApp.apk">WhatsApp.apk</a></li>
+                    </ul>
+                </div>
             </section>
-            <a href="#s3"><h2 id="h3">And another one!</h2></a>
+            <a href="#changelog"><h2>Changelog</h2></a>
             <section>
-                <p id="s3">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                </p>
+                <div class="content" id="changelog">
+                    <p>Changelog of official version: <a target="_blank" href="http://whatsapp.vexmd.info">http://whatsapp.vexmd.info</a>
+                    <h3>v0.993 (based on 3.0.1)</h3>
+                    <ul>
+                        <li>Some basic KitKat support - you'll still see a lot of black text on dark background etc.</li>
+                        <li>Fix some text colors</li>
+                        <li>Always adjust navigation bar color to window background</li>
+                    </ul>
+                    <h3>v0.992 (based on 3.0.1)</h3>
+                    <ul>
+                        <li>Fix updater</li>
+                        <li>Adjust FAB overlay color to fit navigation bar color</li>
+                    </ul>
+                </div>
             </section>
         </div>
+        <footer>Original Mod by <a href="https://plus.google.com/+JoaquinCuitiñoF">Joaquin Cuitiño</a>
+                Dark Mod by <a href="https://plus.google.com/+DavidLW">David L.-W.</a>
     </body>
 </html>

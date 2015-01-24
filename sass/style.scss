@@ -2,6 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
 @import "colors";
+@import "slider";
 
 html, body, nav {
     width: 100%;
@@ -24,12 +25,25 @@ header {
     left: 0;
     width: 100%;
     height: 60px;
+    @include box-sizing(border-box);
     @include box-shadow(0 0 2px 2px black);
     background-color: nth($colors, 1);
-    z-index: 50;
+    z-index: 400;
+    text-align: center;
+    line-height: 60px;
+    font-size: 2em;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
 }
 nav {
-    #menu h2 {
+    .menu h2 {
+        display: block;
+        width: 100%;
         text-align: center;
         font-size: 3em;
         margin: 0;
@@ -37,8 +51,14 @@ nav {
         opacity: 0;
         color: $lightgray;
         @include transition(all 0.2s ease-out);
+        a {
+            display: block;
+            width: 100%;
+            color: inherit;
+            outline: 0;
+        }
     }
-    #menu {
+    .menu {
         position: fixed;
         top: 0px;
         left: -100%;
@@ -47,16 +67,12 @@ nav {
         background-color: $darkgray;
         @include transition(all 0.5s);
         @include box-shadow(0 0 0 black);
-        z-index: 100;
+        z-index: 450;
     }
     @media (orientation: landscape) {
-        #menuchk:checked ~ #menubtn {
-            width: 50%;
-            height: 100%;
-        }
-        #menu { width: 50%; left: -50%; }
+        .menu { width: 50%; left: -50%; }
     }
-    #menubtn {
+    .menubtn {
         display: block;
         position: fixed;
         cursor: pointer;
@@ -67,70 +83,59 @@ nav {
         padding: 0 10px;
         @include transition(all 0.5s);
         @include user-select(none);
-        z-index: 50;
+        z-index: 425;
     }
-    #hamburger, #hamburger:before, #hamburger:after {
+    .hamburger, .hamburger:before, .hamburger:after {
         display: block;
-        position: absolute;
+        position: fixed;
         top: 29px;
+        left: 10px;
         content: '';
         height: 3px;
         width: 35px;
         border-radius: 2px;
         background-color: black;
+        z-index: 400;
         @include transition(all 0.5s);
     }
-    #hamburger:before {
+    .hamburger:before {
+        position: absolute;
         top: -10px;
         left: 0;
     }
-    #hamburger:after {
+    .hamburger:after {
+        position: absolute;
         top: 10px;
         left: 0;
     }
-    #menuchk {
-        display: none;
-    }
-    #menuchk:checked ~ #menu h2 {
+    #nav:target ~ .menu h2 {
         opacity: 1;
         @include transition(all 0.5s cubic-bezier(1,.01,1,.01));
     }
-    #menuchk:checked ~ #menubtn #hamburger:before {
+    #nav:target ~ .hamburger:before {
         background-color: $white;
         @include transform(rotate(45deg));
         width: 25px;
         left: 14px;
         top: -8px;
     }
-    #menuchk:checked ~ #menubtn #hamburger {
+    #nav:target ~ .hamburger {
         @include transform(rotate(180deg));
+        z-index: 500;
         background-color: $white;
     }
-    #menuchk:checked ~ #menubtn #hamburger:after {
+    #nav:target ~ .hamburger:after {
         background-color: $white;
         @include transform(rotate(-45deg));
         width: 25px;
         left: 14px;
         top: 8px;
     }
-    #menuchk:checked ~ #menu {
+    #nav:target ~ .menu {
         left: 0;
         @include box-shadow(0 0 5px 0 black);
     }
-    #menuchk:checked ~ #menubtn {
-        left: 0;
-        z-index: 200;
-    }
-    @media (orientation: landscape) {
-        #menuchk:checked ~ #menubtn {
-            left: 50%;
-        }
-        #menuchk:checked ~ #menubtn #hamburger, #menuchk:checked ~ #menubtn #hamburger:before,
-            #menuchk:checked ~ #menubtn #hamburger:after {
-            background-color: black;
-        }
-    }
-    #menu ul {
+    .menu ul {
         position: relative;
         top: 50%;
         @include transform(translateY(-50%) translateY(-30px));
@@ -143,22 +148,22 @@ nav {
         border-top: 2px black solid;
         border-bottom: 2px black solid;
     }
-    #menu ul li {
+    .menu ul li {
         width: 100%;
         text-align: center;
         margin: 10px 0;
     }
-    #menu ul li a {
+    .menu ul li a {
         color: $white;
         text-decoration: none;
         @include transition(all 0.2s);
     }
-    #menu ul li a:hover {
+    .menu ul li a:hover {
         color: $gray;
     }
 }
 
-#content {
+.wrapper {
     padding-top: 60px;
 
     h2 {
@@ -172,50 +177,59 @@ nav {
         @include box-shadow(0 0 2px 2px black);
         text-align: center;
         font-size: 3em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         @include transition(all 0.5s);
     }
-    #h1 {
-        background-color: nth($colors, 2);
-        top: -70px;
-        z-index: 30;
-    }
-    #h2 {
-        background-color: nth($colors, 3);
-        top: -57px;
-        z-index: 20;
-    }
-    #h3 {
-        background-color: nth($colors, 4);
-        top: -44px;
-        z-index: 10;
-    }
-    #h1:hover, #h2:hover, #h3:hover {
-        top: 60px;
+    @for $i from 1 through 3 {
+        a:nth-of-type(#{$i}) h2 {
+            background-color: nth($colors, $i + 1);
+            top: -79px + ($i * 12px);
+            z-index: 400 - ($i * 10);
+            &:hover {
+                top: 60px;
+            }
+        }
     }
     section {
         padding: 20px 30px;
         font-size: 1.5em;
-        text-align: justify;
+        text-align: center;
     }
+    @media (orientation: landscape) {
+        section {
+            padding: 20px 15%;
+        }
+    }
+    section div {
+        margin: 0 auto;
+    }
+    #changelog {
+        height: 96vh;
+    }
+
     /* Very tricky way to position the section under the header when clicking on a link */
-    section p:before {
+    section .content:before {
         content: ' ';
         display: block;
-        height: 250px;
-        margin-top: -250px;
+        height: 220px;
+        margin-top: -220px;
         visibility: hidden;
     }
-    /* At some point, there's a linebreak in the header. Therefore it's top value has to change */
-    @media (max-width: 32.5em) {
-        #h1 { top: -134px; }
-        #s1:before { height: 310px; margin-top: -310px; }
+    ul {
+        text-align: left;
     }
-    @media (max-width: 25.7em) {
-        #h2 { top: -121px; }
-        #s2:before { height: 310px; margin-top: -310px; }
-    }
-    @media (max-width: 26.5em) {
-        #h3 { top: -108px; }
-        #s3:before { height: 310px; margin-top: -310px; }
-    }
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    @include box-shadow(0 0 2px 2px black);
+    background-color: white;
+    color: black;
+    z-index: 600;
+    font-size: 1em;
+    line-height: 40px;
 }
