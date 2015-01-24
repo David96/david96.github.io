@@ -168,6 +168,12 @@ nav {
     .menu ul li a:hover {
         color: $menu-item-hover-text-color;
     }
+    @media (orientation: landscape) {
+        .menu {
+            width: 50%;
+            left: -50%;
+        }
+    }
     @media (orientation: landscape) and (min-width: 600px) {
         .menu {
             width: 200px;
