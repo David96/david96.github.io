@@ -114,30 +114,30 @@ nav {
         top: 10px;
         left: 0;
     }
-    #nav:target ~ .menu h2 {
+    .menubtn:target ~ .menu h2 {
         opacity: 1;
         @include transition(all 0.5s cubic-bezier(1,.01,1,.01));
     }
-    #nav:target ~ .hamburger:before {
+    .menubtn:target ~ .hamburger:before {
         background-color: $heading-text-color;
         @include transform(rotate(45deg));
         width: 25px;
         left: 14px;
         top: -8px;
     }
-    #nav:target ~ .hamburger {
+    .menubtn:target ~ .hamburger {
         @include transform(rotate(180deg));
         z-index: 500;
         background-color: $heading-text-color;
     }
-    #nav:target ~ .hamburger:after {
+    .menubtn:target ~ .hamburger:after {
         background-color: $heading-text-color;
         @include transform(rotate(-45deg));
         width: 25px;
         left: 14px;
         top: 8px;
     }
-    #nav:target ~ .menu {
+    .menubtn:target ~ .menu {
         left: 0;
         @include box-shadow(0 0 5px 0 black);
     }
