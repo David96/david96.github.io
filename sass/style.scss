@@ -95,6 +95,7 @@ nav {
         border-radius: 2px;
         background-color: black;
         z-index: 400;
+        pointer-events: none;
         @include transition(all 0.5s);
     }
     .hamburger:before {
