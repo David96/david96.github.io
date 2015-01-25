@@ -288,9 +288,9 @@ $headings-count: 5;
     section a:hover {
         color: $link-hover-text-color;
     }
-    a:nth-of-type(#{$headings-count}) + section .content {
+    a:last-of-type + section .content {
         padding-bottom: 100px;
-        min-height: 85vh;
+        min-height: 100vh;
     }
 
     ul {
