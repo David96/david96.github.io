@@ -93,15 +93,20 @@ nav {
         @include user-select(none);
         z-index: 425;
     }
+    $hamburger-width: 35px;
+    $hamburger-distance: 10px;
+    $hamburger-arrow-length: 25px;
+    $hamburger-height: 3px;
+    $hamburger-border-radius: 2px;
     .hamburger, .hamburger:before, .hamburger:after {
         display: block;
         position: fixed;
         top: 29px;
         left: 10px;
         content: '';
-        height: 3px;
-        width: 35px;
-        border-radius: 2px;
+        height: $hamburger-height;
+        width: $hamburger-width;
+        border-radius: $hamburger-border-radius;
         background-color: black;
         z-index: 400;
         pointer-events: none;
@@ -109,24 +114,42 @@ nav {
     }
     .hamburger:before {
         position: absolute;
-        top: -10px;
+        top: -$hamburger-distance;
         left: 0;
     }
     .hamburger:after {
         position: absolute;
-        top: 10px;
+        top: $hamburger-distance;
         left: 0;
     }
     .menubtn:target ~ .menu h2 {
         opacity: 1;
         @include transition(all 0.5s cubic-bezier(1,.01,1,.01));
     }
+    /*
+    45°\    |
+    ------------ length = $hamburger-arrow-length
+length/2 \  | h = sin(45°) * length/2
+          \ |
+            |$hamburger-distance - h
+    ------------------
+
+        d = cos(45°) * length / 2
+    45°\|   |
+    ------------ length = $hamburger-arrow-length
+length/2 \  |
+          \ |
+            |        | left = $hamburger-width - (length / 2 + d)
+    ------------------
+    */
+    $hamburger-arrow-dif-top: ($hamburger-distance - sin(45deg) * $hamburger-arrow-length / 2);
+    $hamburger-arrow-left: $hamburger-width - ($hamburger-arrow-length / 2 + cos(45deg) * $hamburger-arrow-length / 2);
     .menubtn:target ~ .hamburger:before {
         background-color: $heading-text-color;
         @include transform(rotate(45deg));
-        width: 25px;
-        left: 14px;
-        top: -8px;
+        width: $hamburger-arrow-length;
+        left: $hamburger-arrow-left;
+        top: -$hamburger-distance + $hamburger-arrow-dif-top + $hamburger-border-radius / 4;
     }
     .menubtn:target ~ .hamburger {
         @include transform(rotate(180deg));
@@ -136,9 +159,9 @@ nav {
     .menubtn:target ~ .hamburger:after {
         background-color: $heading-text-color;
         @include transform(rotate(-45deg));
-        width: 25px;
-        left: 14px;
-        top: 8px;
+        width: $hamburger-arrow-length;
+        left: $hamburger-arrow-left;
+        top: $hamburger-distance - $hamburger-arrow-dif-top - $hamburger-border-radius / 4;
     }
     .menubtn:target ~ .menu {
         left: 0;
