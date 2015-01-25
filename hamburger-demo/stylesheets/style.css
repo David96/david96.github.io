@@ -1,0 +1,88 @@
+@charset "UTF-8";
+/* line 7, ../sass/style.scss */
+.hamburger {
+  position: relative;
+  padding: 6px 3px;
+  height: 23px;
+  width: 35px;
+  background-color: red;
+}
+
+/* line 14, ../sass/style.scss */
+.hamburger > div, .hamburger > div:before, .hamburger > div:after {
+  display: block;
+  position: relative;
+  top: 10px;
+  left: 0;
+  content: '';
+  height: 3px;
+  width: 35px;
+  border-radius: 2px;
+  background-color: black;
+  pointer-events: none;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/* line 27, ../sass/style.scss */
+.hamburger > div:before {
+  position: absolute;
+  top: -10px;
+  left: 0;
+}
+
+/* line 32, ../sass/style.scss */
+.hamburger > div:after {
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+/*
+    45°\    |
+    ------------ length = $hamburger-arrow-length
+length/2 \  | h = sin(45°) * length/2
+          \ |
+            |$hamburger-distance - h
+    ------------------
+
+        d = cos(45°) * length / 2
+    45°\|   |
+    ------------ length = $hamburger-arrow-length
+length/2 \  |
+          \ |
+            |        | left = $hamburger-width - (length / 2 + d)
+    ------------------
+*/
+/* line 55, ../sass/style.scss */
+.hamburger:hover > div:before {
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 25px;
+  left: 13.66117px;
+  top: -8.33883px;
+}
+
+/* line 61, ../sass/style.scss */
+.hamburger:hover > div {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  background-color: black;
+}
+
+/* line 65, ../sass/style.scss */
+.hamburger:hover > div:after {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  width: 25px;
+  left: 13.66117px;
+  top: 8.33883px;
+}

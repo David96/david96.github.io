@@ -1,0 +1,70 @@
+@import "compass";
+$hamburger-width: 35px;
+$hamburger-distance: 10px;
+$hamburger-arrow-length: 25px;
+$hamburger-height: 3px;
+$hamburger-border-radius: 2px;
+.hamburger {
+    position: relative;
+    padding: 2 * $hamburger-height $hamburger-height;
+    height: $hamburger-height + $hamburger-distance * 2;
+    width: $hamburger-width;
+    background-color: red;
+}
+.hamburger > div, .hamburger > div:before, .hamburger > div:after {
+    display: block;
+    position: relative;
+    top: $hamburger-distance;
+    left: 0;
+    content: '';
+    height: $hamburger-height;
+    width: $hamburger-width;
+    border-radius: $hamburger-border-radius;
+    background-color: black;
+    pointer-events: none;
+    @include transition(all 0.5s);
+}
+.hamburger > div:before {
+    position: absolute;
+    top: -$hamburger-distance;
+    left: 0;
+}
+.hamburger > div:after {
+    position: absolute;
+    top: $hamburger-distance;
+    left: 0;
+}
+/*
+    45°\    |
+    ------------ length = $hamburger-arrow-length
+length/2 \  | h = sin(45°) * length/2
+          \ |
+            |$hamburger-distance - h
+    ------------------
+
+        d = cos(45°) * length / 2
+    45°\|   |
+    ------------ length = $hamburger-arrow-length
+length/2 \  |
+          \ |
+            |        | left = $hamburger-width - (length / 2 + d)
+    ------------------
+*/
+$hamburger-arrow-dif-top: ($hamburger-distance - sin(45deg) * $hamburger-arrow-length / 2);
+$hamburger-arrow-left: $hamburger-width - ($hamburger-arrow-length / 2 + cos(45deg) * $hamburger-arrow-length / 2);
+.hamburger:hover > div:before {
+    @include transform(rotate(45deg));
+    width: $hamburger-arrow-length;
+    left: $hamburger-arrow-left;
+    top: -$hamburger-distance + $hamburger-arrow-dif-top + $hamburger-border-radius / 4;
+}
+.hamburger:hover > div {
+    @include transform(rotate(180deg));
+    background-color: black;
+}
+.hamburger:hover > div:after {
+    @include transform(rotate(-45deg));
+    width: $hamburger-arrow-length;
+    left: $hamburger-arrow-left;
+    top: $hamburger-distance - $hamburger-arrow-dif-top - $hamburger-border-radius / 4;
+}
