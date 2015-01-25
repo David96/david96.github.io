@@ -1,14 +1,13 @@
 @charset "UTF-8";
 /* line 7, ../sass/style.scss */
 .hamburger {
-  position: relative;
   padding: 6px 3px;
   height: 23px;
   width: 35px;
   background-color: red;
 }
 
-/* line 14, ../sass/style.scss */
+/* line 13, ../sass/style.scss */
 .hamburger > div, .hamburger > div:before, .hamburger > div:after {
   display: block;
   position: relative;
@@ -26,14 +25,14 @@
   transition: all 0.5s;
 }
 
-/* line 27, ../sass/style.scss */
+/* line 26, ../sass/style.scss */
 .hamburger > div:before {
   position: absolute;
   top: -10px;
   left: 0;
 }
 
-/* line 32, ../sass/style.scss */
+/* line 31, ../sass/style.scss */
 .hamburger > div:after {
   position: absolute;
   top: 10px;
@@ -56,7 +55,7 @@ length/2 \  |
             |        | left = $hamburger-width - (length / 2 + d)
     ------------------
 */
-/* line 55, ../sass/style.scss */
+/* line 54, ../sass/style.scss */
 .hamburger:hover > div:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -67,7 +66,7 @@ length/2 \  |
   top: -8.33883px;
 }
 
-/* line 61, ../sass/style.scss */
+/* line 60, ../sass/style.scss */
 .hamburger:hover > div {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -76,7 +75,7 @@ length/2 \  |
   background-color: black;
 }
 
-/* line 65, ../sass/style.scss */
+/* line 64, ../sass/style.scss */
 .hamburger:hover > div:after {
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);

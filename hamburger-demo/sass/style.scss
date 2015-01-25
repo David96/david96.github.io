@@ -5,7 +5,6 @@ $hamburger-arrow-length: 25px;
 $hamburger-height: 3px;
 $hamburger-border-radius: 2px;
 .hamburger {
-    position: relative;
     padding: 2 * $hamburger-height $hamburger-height;
     height: $hamburger-height + $hamburger-distance * 2;
     width: $hamburger-width;
