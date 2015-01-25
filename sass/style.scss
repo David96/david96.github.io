@@ -219,6 +219,7 @@ $headings-count: 5;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        @include box-sizing(border-box);
         @include transition(all 0.5s);
     }
     h2, h3 {
