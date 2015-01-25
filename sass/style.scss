@@ -229,24 +229,45 @@ $headings-count: 5;
         content: ' ';
         display: block;
         visibility: hidden;
+        height: 216px;
+        margin-top: -216px;
     }
-    @for $i from 1 through $headings-count {
-        a:nth-of-type(#{$i}) {
-            h2 {
-                background-color: nth($colors, $i + 1);
-                top: -79px + ($i * 12px);
-                z-index: 400 - ($i * 10);
-                &:hover {
-                    top: 47px + ($i * 12px);
+
+    /* Currently, Firefox and Safari are the only browser supporting position: sticky, so only specify this special offset for these */
+    @mixin topOffset() {
+        @for $i from 1 through $headings-count {
+            a:nth-of-type(#{$i}) {
+                h2 {
+                    background-color: nth($colors, $i + 1);
+                    top: -79px + ($i * 12px);
+                    z-index: 400 - ($i * 10);
+                    &:hover {
+                        top: 47px + ($i * 12px);
+                    }
+                }
+
+                + section .content:before {
+                    height: 204px + ($i * 12px);
+                    margin-top: -204px - ($i * 12px);
                 }
             }
+        }
 
-            + section .content:before {
-                height: 204px + ($i * 12px);
-                margin-top: -204px - ($i * 12px);
+    }
+    /* Firefox only */
+    @-moz-document url-prefix() {
+        @include topOffset();
+    }
+    /* Safari only */
+    _::-webkit-full-page-media, _:future, :root {
+        @include topOffset();
+    }
+
+    @for $i from 1 through $headings-count {
+            a:nth-of-type(#{$i}) h2 {
+                background-color: nth($colors, $i + 1);
             }
         }
-    }
     section {
         padding: 20px 30px;
         font-size: 1.5em;
