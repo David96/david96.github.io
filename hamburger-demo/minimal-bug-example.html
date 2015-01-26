@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hamburger Demo</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <style>
+.hamburger {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    background-color: red;
+}
+.hamburger > div, .hamburger > div:before {
+    display: block;
+    content: '';
+    width: 50px;
+    position: relative;
+    height: 3px;
+    top: 10px;
+    left: 0;
+    background-color: black;
+    transition: all 0.5s;
+}
+.hamburger > div:before {
+    position: absolute;
+    border-radius: 1px;
+    top: -10px;
+}
+.hamburger:hover > div:before {
+    transform: rotate(10deg);
+}
+        </style>
+    </head>
+    <body>
+        <div class="hamburger"><div></div></div>
+    </body>
+</html>

@@ -167,7 +167,7 @@ length/2 \  |
         left: 0;
         @include box-shadow(0 0 5px 0 black);
     }
-    .menu ul {
+    .menu > ul {
         @include box-sizing(border-box);
         height: 100%;
         list-style: none;
@@ -184,9 +184,14 @@ length/2 \  |
         text-align: left;
         @include ellipsis();
     }
-    .menu ul li a {
+    .menu ul a {
         display: block;
+        color: $menu-item-text-color;
+        text-decoration: none;
         width: 100%;
+        @include transition(all 0.2s);
+    }
+    .menu > ul > li > a {
         padding: 15px 30px;
         border-bottom: 1px solid black;
         color: $menu-item-text-color;
@@ -195,6 +200,8 @@ length/2 \  |
     }
     .menu ul li a:hover {
         color: $menu-item-hover-text-color;
+    }
+    .menu > ul > li > a:hover {
         background-color: $darkgray;
     }
     .menu p {
@@ -312,6 +319,7 @@ $headings-count: 5;
     }
     section div {
         margin: 0 auto;
+        text-align: left;
     }
     section a {
         color: $link-text-color;
@@ -324,9 +332,9 @@ $headings-count: 5;
         padding-bottom: 100px;
         min-height: 100vh;
     }
-
-    ul {
-        text-align: left;
+    pre {
+        overflow-x: auto;
+        padding: 0 5px;
     }
 }
 @media (orientation: landscape) and (min-width: 600px) {

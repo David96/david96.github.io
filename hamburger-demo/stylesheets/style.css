@@ -8,12 +8,11 @@
 }
 
 /* line 13, ../sass/style.scss */
-.hamburger > div, .hamburger > div:before, .hamburger > div:after {
+.hamburger > div, .hamburger div:before, .hamburger div:after {
   display: block;
   position: relative;
-  top: 10px;
   left: 0;
-  content: '';
+  top: 10px;
   height: 3px;
   width: 35px;
   border-radius: 2px;
@@ -25,18 +24,20 @@
   transition: all 0.5s;
 }
 
-/* line 26, ../sass/style.scss */
-.hamburger > div:before {
+/* line 25, ../sass/style.scss */
+.hamburger div:before, .hamburger div:after {
+  content: '';
   position: absolute;
-  top: -10px;
-  left: 0;
 }
 
-/* line 31, ../sass/style.scss */
-.hamburger > div:after {
-  position: absolute;
+/* line 29, ../sass/style.scss */
+.hamburger div:before {
+  top: -10px;
+}
+
+/* line 32, ../sass/style.scss */
+.hamburger div:after {
   top: 10px;
-  left: 0;
 }
 
 /*
@@ -55,8 +56,8 @@ length/2 \  |
             |        | left = $hamburger-width - (length / 2 + d)
     ------------------
 */
-/* line 54, ../sass/style.scss */
-.hamburger:hover > div:before {
+/* line 53, ../sass/style.scss */
+.hamburger:hover div:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
@@ -66,17 +67,16 @@ length/2 \  |
   top: -8.33883px;
 }
 
-/* line 60, ../sass/style.scss */
-.hamburger:hover > div {
+/* line 59, ../sass/style.scss */
+.hamburger:hover div {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
-  background-color: black;
 }
 
-/* line 64, ../sass/style.scss */
-.hamburger:hover > div:after {
+/* line 62, ../sass/style.scss */
+.hamburger:hover div:after {
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
