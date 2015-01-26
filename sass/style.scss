@@ -167,17 +167,9 @@ length/2 \  |
         left: 0;
         @include box-shadow(0 0 5px 0 black);
     }
-    .menu > ul {
-        @include box-sizing(border-box);
-        height: 100%;
-        list-style: none;
-        font-size: 1em;
-        width: 100%;
-        height: calc(100% - 60px - 50px);
+    .menu ul {
         padding: 0;
         margin: 0;
-        border-top: 2px black solid;
-        border-bottom: 2px black solid;
     }
     .menu ul li {
         width: 100%;
@@ -189,20 +181,34 @@ length/2 \  |
         color: $menu-item-text-color;
         text-decoration: none;
         width: 100%;
-        @include transition(all 0.2s);
-    }
-    .menu > ul > li > a {
-        padding: 15px 30px;
-        border-bottom: 1px solid black;
-        color: $menu-item-text-color;
-        text-decoration: none;
+        @include box-sizing(border-box);
         @include transition(all 0.2s);
     }
     .menu ul li a:hover {
         color: $menu-item-hover-text-color;
-    }
-    .menu > ul > li > a:hover {
         background-color: $darkgray;
+    }
+    .menu > ul {
+        @include box-sizing(border-box);
+        height: 100%;
+        list-style: none;
+        font-size: 1em;
+        width: 100%;
+        height: calc(100% - 60px - 50px);
+        border-top: 2px black solid;
+        border-bottom: 2px black solid;
+    }
+    .menu > ul > li {
+        border-bottom: 1px solid black;
+    }
+    .menu > ul > li > a {
+        padding: 15px 30px;
+        color: $menu-item-text-color;
+        text-decoration: none;
+        @include transition(all 0.2s);
+    }
+    .menu > ul > li > ul > li > a {
+        padding: 5px 5px 5px 40px;
     }
     .menu p {
         text-align: center;
