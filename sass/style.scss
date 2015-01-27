@@ -195,7 +195,7 @@ length/2 \  |
         list-style: none;
         font-size: 1em;
         width: 100%;
-        height: calc(100% - 60px - 50px);
+        height: calc(100% - #{60px + 50px});
         border-top: 2px black solid;
         border-bottom: 2px black solid;
     }
