@@ -1,21 +1,20 @@
 @charset "UTF-8";
-/* line 7, ../sass/style.scss */
+/* line 6, ../sass/style.scss */
 .hamburger {
-  padding: 6px 3px;
-  height: 23px;
-  width: 35px;
+  padding: 20px 10px;
+  height: 410px;
+  width: 600px;
   background-color: red;
 }
 
-/* line 13, ../sass/style.scss */
+/* line 12, ../sass/style.scss */
 .hamburger > div, .hamburger div:before, .hamburger div:after {
   display: block;
   position: relative;
   left: 0;
-  top: 10px;
-  height: 3px;
-  width: 35px;
-  border-radius: 2px;
+  top: 200px;
+  height: 10px;
+  width: 600px;
   background-color: black;
   pointer-events: none;
   -moz-transition: all 0.5s;
@@ -24,20 +23,20 @@
   transition: all 0.5s;
 }
 
-/* line 25, ../sass/style.scss */
+/* line 23, ../sass/style.scss */
 .hamburger div:before, .hamburger div:after {
   content: '';
   position: absolute;
 }
 
-/* line 29, ../sass/style.scss */
+/* line 27, ../sass/style.scss */
 .hamburger div:before {
-  top: -10px;
+  top: -200px;
 }
 
-/* line 32, ../sass/style.scss */
+/* line 30, ../sass/style.scss */
 .hamburger div:after {
-  top: 10px;
+  top: 200px;
 }
 
 /*
@@ -56,18 +55,18 @@ length/2 \  |
             |        | left = $hamburger-width - (length / 2 + d)
     ------------------
 */
-/* line 53, ../sass/style.scss */
+/* line 51, ../sass/style.scss */
 .hamburger:hover div:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  width: 25px;
-  left: 13.66117px;
-  top: -8.33883px;
+  width: 300px;
+  left: 345.36255px;
+  top: -102.53048px;
 }
 
-/* line 59, ../sass/style.scss */
+/* line 57, ../sass/style.scss */
 .hamburger:hover div {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -75,13 +74,13 @@ length/2 \  |
   transform: rotate(180deg);
 }
 
-/* line 62, ../sass/style.scss */
+/* line 60, ../sass/style.scss */
 .hamburger:hover div:after {
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  width: 25px;
-  left: 13.66117px;
-  top: 8.33883px;
+  width: 300px;
+  left: 345.36255px;
+  top: 102.53048px;
 }

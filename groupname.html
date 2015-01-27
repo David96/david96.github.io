@@ -32,9 +32,9 @@
             </div>
         </nav>
         <div class="wrapper">
-            <a href="#findingit"><h2>How I Found The File</h2></a>
-            <section>
-                <div class="content" id="findingit">
+            <section id="findingit">
+                <a href="#findingit"><h2>How I Found The File</h2></a>
+                <div class="content">
                     <h3>TL;DR</h3>
                     <p>Open smali/com/whatsap/rb.smali in the text editor of your choice and replace the hex codes starting at line 1298 with your preferred colors.</p>
                     <p>
@@ -127,9 +127,9 @@ sput-object v0, Lcom/whatsapp/rb;-&gt;f:[I</code></pre>
                     </p>
                 </div>
             </section>
-            <a href="#changingit"><h2>Changing The Colors</h2></a>
-            <section>
-                <div class="content" id="changingit">
+            <section id="changingit">
+                <a href="#changingit"><h2>Changing The Colors</h2></a>
+                <div class="content">
                     <p>
                         Just changing the colors is actually pretty easy. You remove the existing colors and for every color you add a new one in that format: <code>0x8digithexcode</code><br />
                         Therefore white looks like that: <code>0xffffffff</code>, red like that: <code>0xffff0000</code> etc. Simple color hex codes. The first two digits are the alpha part, the second two the red part, the third the green and the fourth the blue.

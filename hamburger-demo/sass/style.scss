@@ -1,9 +1,8 @@
 @import "compass";
-$hamburger-width: 35px;
-$hamburger-distance: 10px;
-$hamburger-arrow-length: 25px;
-$hamburger-height: 3px;
-$hamburger-border-radius: 2px;
+$hamburger-width: 600px;
+$hamburger-distance: 200px;
+$hamburger-arrow-length: 300px;
+$hamburger-height: 10px;
 .hamburger {
     padding: 2 * $hamburger-height $hamburger-height;
     height: $hamburger-height + $hamburger-distance * 2;
@@ -17,7 +16,6 @@ $hamburger-border-radius: 2px;
     top: $hamburger-distance;
     height: $hamburger-height;
     width: $hamburger-width;
-    border-radius: $hamburger-border-radius;
     background-color: black;
     pointer-events: none;
     @include transition(all .5s);
@@ -53,8 +51,8 @@ $hamburger-arrow-left: $hamburger-width - ($hamburger-arrow-length / 2 + cos(45d
 .hamburger:hover div:before {
     @include transform(rotate(45deg));
     width: $hamburger-arrow-length;
-    left: $hamburger-arrow-left;
-    top: -$hamburger-distance + $hamburger-arrow-dif-top + $hamburger-border-radius / 4;
+    left: $hamburger-arrow-left + $hamburger-height / 7;
+    top: -$hamburger-distance + $hamburger-arrow-dif-top + sin(45deg) * $hamburger-height / 2;// + $hamburger-height / 4;
 }
 .hamburger:hover div {
     @include transform(rotate(180deg));
@@ -62,6 +60,6 @@ $hamburger-arrow-left: $hamburger-width - ($hamburger-arrow-length / 2 + cos(45d
 .hamburger:hover div:after {
     @include transform(rotate(-45deg));
     width: $hamburger-arrow-length;
-    left: $hamburger-arrow-left;
-    top: $hamburger-distance - $hamburger-arrow-dif-top - $hamburger-border-radius / 4;
+    left: $hamburger-arrow-left + $hamburger-height / 7;
+    top: $hamburger-distance - $hamburger-arrow-dif-top - sin(45deg) * $hamburger-height / 2;// - $hamburger-height / 4;
 }
