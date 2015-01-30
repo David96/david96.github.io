@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <script src="/scripts/scroll.min.js"></script>
+        <script src="/scripts/script.min.js"></script>
     </head>
     <body>
         <header>
@@ -34,7 +34,7 @@
         </nav>
         <div class="wrapper">
             <section id="findingit">
-                <a href="#findingit"><h2>How I Found The File</h2></a>
+                <a href="#findingit" class="smooth-scroll"><h2>How I Found The File</h2></a>
                 <div class="content">
                     <h3>TL;DR</h3>
                     <p>Open smali/com/whatsap/rb.smali in the text editor of your choice and replace the hex codes starting at line 1298 with your preferred colors.</p>
@@ -129,7 +129,7 @@ sput-object v0, Lcom/whatsapp/rb;-&gt;f:[I</code></pre>
                 </div>
             </section>
             <section id="changingit">
-                <a href="#changingit"><h2>Changing The Colors</h2></a>
+                <a href="#changingit" class="smooth-scroll"><h2>Changing The Colors</h2></a>
                 <div class="content">
                     <p>
                         Just changing the colors is actually pretty easy. You remove the existing colors and for every color you add a new one in that format: <code>0x8digithexcode</code><br />
