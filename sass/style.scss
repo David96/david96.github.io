@@ -46,7 +46,7 @@ header {
         font-size: 2em;
         font-weight: normal;
         padding-left: 60px;
-        color: $white;
+        color: $heading-text-color;
         @include ellipsis();
     }
 }
@@ -57,11 +57,10 @@ nav {
         text-align: center;
         font-size: 2em;
         line-height: $header-height;
-        color: $heading-text-color;
+        color: $menu-heading-text-color;
+        background-color: nth($colors, 1);
         margin: 0;
         padding: 0;
-        opacity: 0;
-        @include transition(all 0.2s ease-out);
         a {
             display: block;
             width: 100%;
@@ -146,7 +145,7 @@ length/2 \  |
     $hamburger-arrow-dif-top: ($hamburger-distance - sin(45deg) * $hamburger-arrow-length / 2);
     $hamburger-arrow-left: $hamburger-width - ($hamburger-arrow-length / 2 + cos(45deg) * $hamburger-arrow-length / 2);
     .menubtn:target ~ .hamburger:before {
-        background-color: $heading-text-color;
+        background-color: $menu-heading-text-color;
         @include transform(rotate(45deg));
         width: $hamburger-arrow-length;
         left: $hamburger-arrow-left;
@@ -155,10 +154,10 @@ length/2 \  |
     .menubtn:target ~ .hamburger {
         @include transform(rotate(180deg));
         z-index: 500;
-        background-color: $heading-text-color;
+        background-color: $menu-heading-text-color;
     }
     .menubtn:target ~ .hamburger:after {
-        background-color: $heading-text-color;
+        background-color: $menu-heading-text-color;
         @include transform(rotate(-45deg));
         width: $hamburger-arrow-length;
         left: $hamburger-arrow-left;
@@ -225,10 +224,10 @@ length/2 \  |
     @media (orientation: landscape) and (min-width: 600px) {
         .menu {
             width: 200px;
+            @include box-shadow(0 0 5px 0 black);
             left: 0;
         }
         .menu h2 {
-            opacity: 1;
             pointer-events: none;
         }
         .hamburger {
@@ -244,7 +243,7 @@ length/2 \  |
         width: calc(100% - 200px);
     }
 }
-$headings-count: 5;
+$headings-count: 4;
 .wrapper {
     padding-top: 60px;
     padding-bottom: 40px;
