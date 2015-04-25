@@ -38,5 +38,9 @@ function updateClickListeners() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", updateClickListeners)
+if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
+    updateClickListeners();
+} else {
+    document.addEventListener("DOMContentLoaded", updateClickListeners)
+}
 window.addEventListener("resize", updateClickListeners)

@@ -1,5 +1,5 @@
 function updateSmoothScrollLinks() {
-    var navLinks = document.querySelectorAll('.menu a');
+    var navLinks = document.querySelectorAll('.menu ul a');
     for (i = 0; i < navLinks.length; ++i) {
         if (window.innerHeight < window.innerWidth) {
             if (!navLinks[i].className.match(/\bsmooth-scroll\b/))
@@ -10,5 +10,9 @@ function updateSmoothScrollLinks() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", updateSmoothScrollLinks);
+if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
+    updateSmoothScrollLinks();
+} else {
+    document.addEventListener("DOMContentLoaded", updateSmoothScrollLinks);
+}
 window.addEventListener("resize", updateSmoothScrollLinks);
