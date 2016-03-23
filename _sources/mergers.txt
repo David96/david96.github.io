@@ -1,0 +1,22 @@
+mergers package
+===============
+
+Submodules
+----------
+
+mergers.i3 module
+-----------------
+
+.. automodule:: mergers.i3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: mergers
+    :members:
+    :undoc-members:
+    :show-inheritance:

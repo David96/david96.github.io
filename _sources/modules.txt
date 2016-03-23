@@ -1,0 +1,12 @@
+config_patcher
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   config
+   i3config
+   matcher
+   merger
+   mergers
+   themes

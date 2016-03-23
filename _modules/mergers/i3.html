@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mergers.i3 &mdash; config_patcher 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="config_patcher 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mergers.i3</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">matcher</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">xdg.BaseDirectory</span> <span class="kn">import</span> <span class="n">xdg_config_home</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">merger</span> <span class="kn">import</span> <span class="n">BaseMerger</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="Merger"><a class="viewcode-back" href="../../mergers.html#mergers.i3.Merger">[docs]</a><span class="k">class</span> <span class="nc">Merger</span><span class="p">(</span><span class="n">BaseMerger</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides merging functionality for two i3 config files.</span>
+<span class="sd">        Merges only the style parts (identified by regex patterns) from the new file into the old one.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;~/.i3/config&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;i3/config&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span>
+
+<div class="viewcode-block" id="Merger.merge"><a class="viewcode-back" href="../../mergers.html#mergers.i3.Merger.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Merge the style of two i3 config files.</span>
+<span class="sd">            Overrides oldconfig.</span>
+
+<span class="sd">            :param name: name of the file in the theme</span>
+<span class="sd">            :param oldconfig: Path to old config</span>
+<span class="sd">            :param newconfig: Path to merge into old config</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">({</span><span class="s2">&quot;root&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*client\.\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*new_window\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*new_float\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*hide_edge_borders\s&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;^\s*strip_workspace_numbers\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*mode\s&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;colors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]})</span>
+
+        <span class="p">(</span><span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__get_used_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns variables used by a line.</span>
+<span class="sd">            Sets &quot;used&quot; to &quot;True&quot; for each found variable!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">variable_matches</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+            <span class="c1"># There might be variables including other variables (like $light and $lighter, $dark and $darker etc.)</span>
+            <span class="c1"># i3 allows usage of variables in strings like $varblabla so we look for multiple variable occurences</span>
+            <span class="c1"># at the same position and if in doubt take the longer variable.</span>
+            <span class="c1"># See https://github.com/David96/i3config_patcher/issues/6</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;$</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">variable</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">variable_matches</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Found conflicting variable usage of </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2"> at </span><span class="si">%d</span><span class="s2"> in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                            <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">],</span> <span class="n">position</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+                    <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span> \
+                            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">])</span> <span class="k">else</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">]</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Using </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">variable_matches</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">used_variables</span><span class="p">:</span>
+            <span class="n">variables</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="n">used_variables</span>
+
+    <span class="k">def</span> <span class="nf">__append_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">variables</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">line</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">used_variables</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">__append_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__append_variables_for_pattern</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__append_matches_for_pattern</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="n">matches</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">__append_variables_for_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">matches</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[</span><span class="n">pattern</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__append_variables</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">match</span><span class="o">.</span><span class="n">used_variables</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__append_variables_for_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__append_variables</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">block</span><span class="o">.</span><span class="n">used_variables</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">block</span><span class="o">.</span><span class="n">blocks</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__append_variables_for_block</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__append_matches_for_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">matches</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">line</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[</span><span class="n">pattern</span><span class="p">]])</span>
+
+    <span class="k">def</span> <span class="nf">__append_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">block</span><span class="o">.</span><span class="n">matches</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__append_pattern</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">block</span><span class="o">.</span><span class="n">matches</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">block</span><span class="o">.</span><span class="n">blocks</span><span class="p">:</span>
+            <span class="n">block_config</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__append_block</span><span class="p">(</span><span class="n">block_config</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">block_config</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> {</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">block_config</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">__parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">blocks</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;root&quot;</span><span class="p">:</span> <span class="n">Block</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="p">}</span>
+        <span class="n">current_block</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">matchobj</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_OPEN</span><span class="p">:</span>
+                    <span class="n">new_block</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">current_block</span><span class="p">,</span> <span class="n">current_block</span><span class="p">)</span>
+                    <span class="n">blocks</span><span class="p">[</span><span class="n">matchobj</span><span class="o">.</span><span class="n">current_block</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_block</span>
+                    <span class="n">current_block</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_block</span><span class="p">)</span>
+                    <span class="n">current_block</span> <span class="o">=</span> <span class="n">new_block</span>
+                <span class="k">elif</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_CLOSE</span><span class="p">:</span>
+                    <span class="n">current_block</span> <span class="o">=</span> <span class="n">current_block</span><span class="o">.</span><span class="n">parent</span>
+                <span class="k">elif</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_VARIABLE</span><span class="p">:</span>
+                    <span class="n">variables</span><span class="p">[</span><span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span>  <span class="n">Variable</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_LINE</span><span class="p">:</span>
+                    <span class="n">used_variables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_used_variables</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+                    <span class="n">current_block</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">|=</span> <span class="n">used_variables</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="n">Match</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">pattern</span> <span class="ow">in</span> <span class="n">current_block</span><span class="o">.</span><span class="n">matches</span><span class="p">:</span>
+                        <span class="n">current_block</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">matchobj</span><span class="o">.</span><span class="n">pattern</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">current_block</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">matchobj</span><span class="o">.</span><span class="n">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="n">match</span> <span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__merge_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">patched_config</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                <span class="n">matchobj</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">current_block</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="n">matchobj</span><span class="o">.</span><span class="n">current_block</span><span class="p">]</span> <span class="k">if</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">current_block</span> <span class="ow">in</span> <span class="n">blocks</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="k">if</span> <span class="n">current_block</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_OPEN</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__append_variables_for_block</span><span class="p">(</span><span class="n">patched_config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">current_block</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">current_block</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_VARIABLE</span> <span class="ow">and</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+                    <span class="n">new_var</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="n">new_var</span><span class="o">.</span><span class="n">used</span><span class="p">:</span>
+                        <span class="n">override</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;override </span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">? [y/n] &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">new_var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">new_var</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                        <span class="n">variables</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">new_var</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">override</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                            <span class="n">patched_config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_var</span><span class="o">.</span><span class="n">line</span><span class="p">)</span>
+                            <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">current_block</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_CLOSE</span><span class="p">:</span>
+                    <span class="c1"># Append all matches that we didn&#39;t have a counterpart for in the old config</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__append_block</span><span class="p">(</span><span class="n">patched_config</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+                    <span class="n">blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">current_block</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">current_block</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">MATCH_LINE</span> <span class="ow">and</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">pattern</span> <span class="ow">in</span> <span class="n">current_block</span><span class="o">.</span><span class="n">matches</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__append_pattern</span><span class="p">(</span><span class="n">patched_config</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">current_block</span><span class="o">.</span><span class="n">matches</span><span class="p">,</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">pattern</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">patched_config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="c1"># Append matches that we couldn&#39;t inline-replace</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__append_block</span><span class="p">(</span><span class="n">patched_config</span><span class="p">,</span> <span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">],</span> <span class="n">variables</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">patched_config</span></div>
+
+<span class="sd">&quot;&quot;&quot; Helper classes &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Match"><a class="viewcode-back" href="../../mergers.html#mergers.i3.Match">[docs]</a><span class="k">class</span> <span class="nc">Match</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="n">used_variables</span></div>
+
+<div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../mergers.html#mergers.i3.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../mergers.html#mergers.i3.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="bp">False</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, David Leppla-Weber.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

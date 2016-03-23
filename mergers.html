@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mergers package &mdash; config_patcher 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="config_patcher 0.0.1 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mergers-package">
+<h1>mergers package<a class="headerlink" href="#mergers-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-mergers.i3">
+<span id="mergers-i3-module"></span><h2>mergers.i3 module<a class="headerlink" href="#module-mergers.i3" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mergers.i3.Block">
+<em class="property">class </em><code class="descclassname">mergers.i3.</code><code class="descname">Block</code><span class="sig-paren">(</span><em>name</em>, <em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/i3.html#Block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3.Block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="mergers.i3.Match">
+<em class="property">class </em><code class="descclassname">mergers.i3.</code><code class="descname">Match</code><span class="sig-paren">(</span><em>pattern</em>, <em>line</em>, <em>used_variables</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/i3.html#Match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3.Match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="mergers.i3.Merger">
+<em class="property">class </em><code class="descclassname">mergers.i3.</code><code class="descname">Merger</code><a class="reference internal" href="_modules/mergers/i3.html#Merger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3.Merger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="merger.html#merger.BaseMerger" title="merger.BaseMerger"><code class="xref py py-class docutils literal"><span class="pre">merger.BaseMerger</span></code></a></p>
+<p>Provides merging functionality for two i3 config files.
+Merges only the style parts (identified by regex patterns) from the new file into the old one.</p>
+<dl class="method">
+<dt id="mergers.i3.Merger.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>name</em>, <em>oldconfig</em>, <em>newconfig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/i3.html#Merger.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3.Merger.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge the style of two i3 config files.
+Overrides oldconfig.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; name of the file in the theme</li>
+<li><strong>oldconfig</strong> &#8211; Path to old config</li>
+<li><strong>newconfig</strong> &#8211; Path to merge into old config</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mergers.i3.Variable">
+<em class="property">class </em><code class="descclassname">mergers.i3.</code><code class="descname">Variable</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/i3.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mergers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mergers" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">mergers package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-mergers.i3">mergers.i3 module</a></li>
+<li><a class="reference internal" href="#module-mergers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mergers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, David Leppla-Weber.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/mergers.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
