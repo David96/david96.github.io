@@ -50,13 +50,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides basic matching functionality tailored to i3 config files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">match_level</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">matching_blocks</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;root&quot;</span> <span class="p">]</span>
-
     <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">.*</span><span class="se">\&quot;</span><span class="s2">)?\s*{&quot;</span>
     <span class="n">pattern_close</span> <span class="o">=</span> <span class="s2">&quot;\s*}\s*&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">match_level</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matching_blocks</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;root&quot;</span> <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">blocks</span>
 
 <div class="viewcode-block" id="Matcher.matches"><a class="viewcode-back" href="../matcher.html#matcher.Matcher.matches">[docs]</a>    <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
@@ -64,11 +63,9 @@
 <span class="sd">            Match a line to the provided line and block patterns.</span>
 <span class="sd">            Assumes that it is called line by line to make block matching work.</span>
 
-<span class="sd">            Args:</span>
-<span class="sd">                the line you want to match</span>
+<span class="sd">            :param line: the line you want to match</span>
 
-<span class="sd">            Returns:</span>
-<span class="sd">                MatchObj</span>
+<span class="sd">            :returns: :class:`.MatchObj`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">matchObj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern_open</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
