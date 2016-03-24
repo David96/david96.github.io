@@ -1,5 +1,5 @@
-config_patcher
-=============
+
+
 
 .. toctree::
    :maxdepth: 4
@@ -9,4 +9,5 @@ config_patcher
    matcher
    merger
    mergers
+   patternmerger
    themes

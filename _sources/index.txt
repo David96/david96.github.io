@@ -6,16 +6,10 @@ config_patcher
 
 Modules
 =======
-
 .. toctree::
-   :maxdepth: 4
+    :maxdepth: 2
 
-   config
-   i3config
-   matcher
-   merger
-   mergers
-   themes
+    modules
 
 Indices and tables
 ==================

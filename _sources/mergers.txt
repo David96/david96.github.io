@@ -12,6 +12,14 @@ mergers.i3 module
     :undoc-members:
     :show-inheritance:
 
+mergers.i3status module
+-----------------------
+
+.. automodule:: mergers.i3status
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

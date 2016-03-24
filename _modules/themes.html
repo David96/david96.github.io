@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../matcher.html">matcher module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../merger.html">merger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mergers.html">mergers package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../patternmerger.html">patternmerger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../themes.html">themes module</a></li>
 </ul>
 
@@ -239,8 +240,8 @@
                     <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">BaseMerger</span><span class="p">):</span>
                         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Found merger for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
                         <span class="n">mergers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">()</span>
-                <span class="k">except</span><span class="p">:</span>
-                    <span class="k">pass</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Merger </span><span class="si">%s</span><span class="s2"> found but doesn&#39;t implement a Merger class inheriting from BaseMerger&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mergers</span></div>
 </pre></div>
 

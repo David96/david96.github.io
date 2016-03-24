@@ -1,0 +1,7 @@
+patternmerger module
+====================
+
+.. automodule:: patternmerger
+    :members:
+    :undoc-members:
+    :show-inheritance:

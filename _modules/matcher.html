@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../matcher.html">matcher module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../merger.html">merger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mergers.html">mergers package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../patternmerger.html">patternmerger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../themes.html">themes module</a></li>
 </ul>
 
@@ -146,7 +147,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides basic matching functionality tailored to i3 config files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">.*</span><span class="se">\&quot;</span><span class="s2">)?\s*{&quot;</span>
+    <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">?.*</span><span class="se">\&quot;</span><span class="s2">?)?\s*{&quot;</span>
     <span class="n">pattern_close</span> <span class="o">=</span> <span class="s2">&quot;\s*}\s*&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
