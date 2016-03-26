@@ -135,7 +135,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for patternmerger</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">matcher</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">matcher</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">merger</span> <span class="kn">import</span> <span class="n">BaseMerger</span>
 
 <div class="viewcode-block" id="PatternMerger"><a class="viewcode-back" href="../patternmerger.html#patternmerger.PatternMerger">[docs]</a><span class="k">class</span> <span class="nc">PatternMerger</span><span class="p">(</span><span class="n">BaseMerger</span><span class="p">):</span>
@@ -174,11 +176,11 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">position</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;$</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">variable</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">variable_matches</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Found conflicting variable usage of </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2"> at </span><span class="si">%d</span><span class="s2"> in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
-                            <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">],</span> <span class="n">position</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Found conflicting variable usage of </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2"> at </span><span class="si">%d</span><span class="s2"> in </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">variable</span><span class="p">,</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">],</span> <span class="n">position</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
                     <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span> \
                             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">])</span> <span class="k">else</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">]</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Using </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">])</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">])</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>

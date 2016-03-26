@@ -138,6 +138,8 @@
 <span></span><span class="kn">from</span> <span class="nn">xdg.BaseDirectory</span> <span class="kn">import</span> <span class="n">xdg_config_home</span><span class="p">,</span> <span class="n">xdg_data_home</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
 <span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">Config</span>
 <span class="kn">from</span> <span class="nn">merger</span> <span class="kn">import</span> <span class="n">BaseMerger</span>
 
@@ -167,7 +169,7 @@
 <div class="viewcode-block" id="Theme.apply"><a class="viewcode-back" href="../themes.html#themes.Theme.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">files</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mergers</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Merging </span><span class="si">%s</span><span class="s2"> for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">))</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Merging </span><span class="si">%s</span><span class="s2"> for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">mergers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">original</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">files</span><span class="p">)</span>
         <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;theme&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div></div>
 
@@ -238,10 +240,10 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">m</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;Merger&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">BaseMerger</span><span class="p">):</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Found merger for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Found merger for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
                         <span class="n">mergers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">()</span>
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Merger </span><span class="si">%s</span><span class="s2"> found but doesn&#39;t implement a Merger class inheriting from BaseMerger&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Merger </span><span class="si">%s</span><span class="s2"> found but doesn&#39;t implement a Merger class inheriting from BaseMerger&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mergers</span></div>
 </pre></div>
 
