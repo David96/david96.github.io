@@ -4,18 +4,10 @@ mergers package
 Submodules
 ----------
 
-mergers.i3 module
------------------
+mergers.patternmerger module
+----------------------------
 
-.. automodule:: mergers.i3
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-mergers.i3status module
------------------------
-
-.. automodule:: mergers.i3status
+.. automodule:: mergers.patternmerger
     :members:
     :undoc-members:
     :show-inheritance:

@@ -88,7 +88,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../matcher.html">matcher module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../merger.html">merger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mergers.html">mergers package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../patternmerger.html">patternmerger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../themes.html">themes module</a></li>
 </ul>
 
@@ -136,50 +135,71 @@
             
   <h1>Source code for merger</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <div class="viewcode-block" id="BaseMerger"><a class="viewcode-back" href="../merger.html#merger.BaseMerger">[docs]</a><span class="k">class</span> <span class="nc">BaseMerger</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        All mergers have to extend this class.</span>
 
-<span class="sd">        Things to declare:</span>
-<span class="sd">            .. function:: self.files = { name : [path1, path2, ...], ... }</span>
+<span class="sd">        Must declare:</span>
+<span class="sd">            :func:`get_supported_software`</span>
 
-<span class="sd">                path1, path2, ...:  possible places where the supported software may store the specific config file.</span>
-<span class="sd">                expanduser is called on them, so you can use paths like ~/.bla/blubb</span>
+<span class="sd">            :func:`merge`</span>
 
-<span class="sd">                name: the name of the file in a theme.</span>
+<span class="sd">        Can declare:</span>
+<span class="sd">            :func:`get_priority`</span>
 
-<span class="sd">                :example:</span>
-
-<span class="sd">                .. code-block:: python</span>
-
-<span class="sd">                    self.files = {&quot;config&quot;: [ &quot;~/.i3/config&quot;),</span>
-<span class="sd">                                    path.join(xdg_config_home, &quot;i3/config&quot;) ] }</span>
-
-<span class="sd">            .. function:: merge(self, name, oldconfig, newconfig)</span>
-
-<span class="sd">                When a theme is applied, this is called for each file we declared to support in self.files</span>
-<span class="sd">                and that is included in the theme</span>
-
-<span class="sd">                :param name: the name of the file to merge in the theme</span>
-<span class="sd">                :param oldconfig: the path to the original config</span>
-<span class="sd">                :param newconfig: the path to the config to merge</span>
-
-<span class="sd">                :returns: a list containing the patched config line by line</span>
-
-<span class="sd">        See :class:`mergers.i3.Merger` for an example implementation.</span>
+<span class="sd">        See :class:`mergers.patternmerger.Merger` for an example implementation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseMerger.apply"><a class="viewcode-back" href="../merger.html#merger.BaseMerger.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orig_files</span><span class="p">,</span> <span class="n">new_files</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;files&quot;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2"> doesn&#39;t have a »files« Attribute - read the docs about how and why to add it.&quot;</span> <span class="o">%</span> \
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+<div class="viewcode-block" id="BaseMerger.merge"><a class="viewcode-back" href="../merger.html#merger.BaseMerger.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">software</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            When a theme is applied, this is called for each file we declared to support in self.files</span>
+<span class="sd">            and that is included in the theme</span>
+
+<span class="sd">            :param name: the name of the file to merge in the theme</span>
+<span class="sd">            :param oldconfig: the path to the original config</span>
+<span class="sd">            :param newconfig: the path to the config to merge</span>
+
+<span class="sd">            :returns: a list containing the patched config line by line</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="BaseMerger.get_supported_software"><a class="viewcode-back" href="../merger.html#merger.BaseMerger.get_supported_software">[docs]</a>    <span class="k">def</span> <span class="nf">get_supported_software</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Tells us which software is supported by this merger.</span>
+<span class="sd">            Must be overridden by inheriting classes.</span>
+<span class="sd">            Example: :func:`mergers.patternmerger.Merger.get_supported_software`</span>
+
+<span class="sd">            :returns: dict - { &quot;software&quot;: {&quot;theme-filename&quot; : [&quot;real&quot;, &quot;filenames&quot;]} }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="BaseMerger.get_priority"><a class="viewcode-back" href="../merger.html#merger.BaseMerger.get_priority">[docs]</a>    <span class="k">def</span> <span class="nf">get_priority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Priority of the merger. If multiple mergers claim support for a software,</span>
+<span class="sd">            the one with the highest priority is used.</span>
+
+<span class="sd">            :default: 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="BaseMerger.apply"><a class="viewcode-back" href="../merger.html#merger.BaseMerger.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">software</span><span class="p">,</span> <span class="n">theme</span><span class="p">):</span>
+        <span class="n">new_files</span> <span class="o">=</span> <span class="n">theme</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">software</span><span class="p">]</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_supported_software</span><span class="p">()[</span><span class="n">software</span><span class="p">]</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Applying </span><span class="si">%s</span><span class="s2"> for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">software</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">theme_path</span> <span class="ow">in</span> <span class="n">new_files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">orig_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
-                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">orig_path</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">W_OK</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">orig_path</span> <span class="ow">in</span> <span class="n">files</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">orig_path</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">W_OK</span><span class="p">):</span>
+                        <span class="n">theme</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">backup_if_necessary</span><span class="p">(</span><span class="n">software</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+                        <span class="c1"># reload orig files because the original theme might have</span>
+                        <span class="c1"># changed (in case a backup was necessary)</span>
+                        <span class="n">orig_files</span> <span class="o">=</span> <span class="n">theme</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">original</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">software</span><span class="p">]</span>
                         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">orig_path</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">orig_files</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">theme_path</span><span class="p">))</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">software</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                                        <span class="n">orig_files</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">theme_path</span><span class="p">))</span>
                         <span class="k">break</span></div></div>
 
 </pre></div>

@@ -32,7 +32,7 @@
   
     <link rel="top" title="config_patcher 0.0.1 documentation" href="index.html"/>
         <link rel="up" title="&lt;no title&gt;" href="modules.html"/>
-        <link rel="next" title="patternmerger module" href="patternmerger.html"/>
+        <link rel="next" title="themes module" href="themes.html"/>
         <link rel="prev" title="merger module" href="merger.html"/> 
 
   
@@ -91,12 +91,10 @@
 <li class="toctree-l1"><a class="reference internal" href="merger.html">merger module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">mergers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-mergers.i3">mergers.i3 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-mergers.i3status">mergers.i3status module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mergers.patternmerger">mergers.patternmerger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-mergers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="patternmerger.html">patternmerger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="themes.html">themes module</a></li>
 </ul>
 
@@ -149,21 +147,62 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-mergers.i3">
-<span id="mergers-i3-module"></span><h2>mergers.i3 module<a class="headerlink" href="#module-mergers.i3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-mergers.patternmerger">
+<span id="mergers-patternmerger-module"></span><h2>mergers.patternmerger module<a class="headerlink" href="#module-mergers.patternmerger" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="mergers.i3.Merger">
-<em class="property">class </em><code class="descclassname">mergers.i3.</code><code class="descname">Merger</code><a class="reference internal" href="_modules/mergers/i3.html#Merger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3.Merger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="patternmerger.html#patternmerger.PatternMerger" title="patternmerger.PatternMerger"><code class="xref py py-class docutils literal"><span class="pre">patternmerger.PatternMerger</span></code></a></p>
+<dt id="mergers.patternmerger.Block">
+<em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Block</code><span class="sig-paren">(</span><em>name</em>, <em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 </dd></dl>
 
-</div>
-<div class="section" id="module-mergers.i3status">
-<span id="mergers-i3status-module"></span><h2>mergers.i3status module<a class="headerlink" href="#module-mergers.i3status" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="mergers.i3status.Merger">
-<em class="property">class </em><code class="descclassname">mergers.i3status.</code><code class="descname">Merger</code><a class="reference internal" href="_modules/mergers/i3status.html#Merger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.i3status.Merger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="patternmerger.html#patternmerger.PatternMerger" title="patternmerger.PatternMerger"><code class="xref py py-class docutils literal"><span class="pre">patternmerger.PatternMerger</span></code></a></p>
+<dt id="mergers.patternmerger.Match">
+<em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Match</code><span class="sig-paren">(</span><em>pattern</em>, <em>line</em>, <em>used_variables</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="mergers.patternmerger.Merger">
+<em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Merger</code><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="merger.html#merger.BaseMerger" title="merger.BaseMerger"><code class="xref py py-class docutils literal"><span class="pre">merger.BaseMerger</span></code></a></p>
+<p>Provides merging functionality for two i3 config files.
+Merges only the style parts (identified by regex patterns) from the new file into the old one.</p>
+<dl class="method">
+<dt id="mergers.patternmerger.Merger.get_supported_software">
+<code class="descname">get_supported_software</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.get_supported_software"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.get_supported_software" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mergers.patternmerger.Merger.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>software</em>, <em>name</em>, <em>oldconfig</em>, <em>newconfig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.merge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mergers.patternmerger.Merger.merge_config">
+<code class="descname">merge_config</code><span class="sig-paren">(</span><em>patterns</em>, <em>oldconfig</em>, <em>newconfig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.merge_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.merge_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge the style of two i3 config files.
+Overrides oldconfig.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; name of the file in the theme</li>
+<li><strong>oldconfig</strong> &#8211; Path to old config</li>
+<li><strong>newconfig</strong> &#8211; Path to merge into old config</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mergers.patternmerger.Variable">
+<em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Variable</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </div>
@@ -179,7 +218,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="patternmerger.html" class="btn btn-neutral float-right" title="patternmerger module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="themes.html" class="btn btn-neutral float-right" title="themes module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="merger.html" class="btn btn-neutral" title="merger module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

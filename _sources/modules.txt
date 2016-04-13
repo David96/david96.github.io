@@ -9,5 +9,4 @@
    matcher
    merger
    mergers
-   patternmerger
    themes

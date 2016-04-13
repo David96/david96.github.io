@@ -32,7 +32,7 @@
   
     <link rel="top" title="config_patcher 0.0.1 documentation" href="index.html"/>
         <link rel="up" title="&lt;no title&gt;" href="modules.html"/>
-        <link rel="prev" title="patternmerger module" href="patternmerger.html"/> 
+        <link rel="prev" title="mergers package" href="mergers.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,7 +89,6 @@
 <li class="toctree-l1"><a class="reference internal" href="matcher.html">matcher module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="merger.html">merger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mergers.html">mergers package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="patternmerger.html">patternmerger module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">themes module</a></li>
 </ul>
 
@@ -167,16 +166,16 @@ containing the config files to use.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Functionality to load themes from XDG_DATA_HOME/config_patcher
 (usually ~/.local/share/config_patcher/)</p>
-<p>The first time it is run it backups all files that are supported
-by any merger into the &#8220;originals&#8221; theme.
+<p>When patching a file, it is checked whether it already exists
+in the »originals« theme, if not, it is copied to
+THEME_DIR/originals/software/file.
 When a theme is applied, the style is applied to the originals.
 The actual config files are overwritten, so changes should be made
 inside the originals theme, reapplying the style afterwards.</p>
 <p>Resetting to them is possible by applying the originals theme.</p>
-<p>TODO: improve this backup system. It is bad.</p>
 <dl class="method">
-<dt id="themes.Themes.backup_config">
-<code class="descname">backup_config</code><span class="sig-paren">(</span><em>software=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/themes.html#Themes.backup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#themes.Themes.backup_config" title="Permalink to this definition">¶</a></dt>
+<dt id="themes.Themes.backup_if_necessary">
+<code class="descname">backup_if_necessary</code><span class="sig-paren">(</span><em>software</em>, <em>name</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/themes.html#Themes.backup_if_necessary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#themes.Themes.backup_if_necessary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -196,7 +195,7 @@ inside the originals theme, reapplying the style afterwards.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="patternmerger.html" class="btn btn-neutral" title="patternmerger module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mergers.html" class="btn btn-neutral" title="mergers package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

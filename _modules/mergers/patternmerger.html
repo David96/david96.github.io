@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>patternmerger &mdash; config_patcher 0.0.1 documentation</title>
+  <title>mergers.patternmerger &mdash; config_patcher 0.0.1 documentation</title>
   
 
   
@@ -24,17 +24,17 @@
 
   
   
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   
 
   
 
   
-    <link rel="top" title="config_patcher 0.0.1 documentation" href="../index.html"/>
-        <link rel="up" title="Module code" href="index.html"/> 
+    <link rel="top" title="config_patcher 0.0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
 
   
-  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -49,7 +49,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> config_patcher
+            <a href="../../index.html" class="icon icon-home"> config_patcher
           
 
           
@@ -66,7 +66,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -83,12 +83,12 @@
                 <ul class="simple">
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../config.html">config module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../i3config.html">i3config module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../matcher.html">matcher module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../merger.html">merger module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mergers.html">mergers package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../themes.html">themes module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config.html">config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i3config.html">i3config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../matcher.html">matcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../merger.html">merger module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mergers.html">mergers package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes.html">themes module</a></li>
 </ul>
 
             
@@ -102,7 +102,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">config_patcher</a>
+        <a href="../../index.html">config_patcher</a>
       </nav>
 
 
@@ -117,11 +117,11 @@
 
 <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Module code</a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
       
-    <li>patternmerger</li>
+    <li>mergers.patternmerger</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -133,21 +133,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for patternmerger</h1><div class="highlight"><pre>
+  <h1>Source code for mergers.patternmerger</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">xdg.BaseDirectory</span> <span class="kn">import</span> <span class="n">xdg_config_home</span>
 
 <span class="kn">from</span> <span class="nn">matcher</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">merger</span> <span class="kn">import</span> <span class="n">BaseMerger</span>
 
-<div class="viewcode-block" id="PatternMerger"><a class="viewcode-back" href="../patternmerger.html#patternmerger.PatternMerger">[docs]</a><span class="k">class</span> <span class="nc">PatternMerger</span><span class="p">(</span><span class="n">BaseMerger</span><span class="p">):</span>
+<div class="viewcode-block" id="Merger"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger">[docs]</a><span class="k">class</span> <span class="nc">Merger</span><span class="p">(</span><span class="n">BaseMerger</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides merging functionality for two i3 config files.</span>
 <span class="sd">        Merges only the style parts (identified by regex patterns) from the new file into the old one.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span> <span class="o">=</span> <span class="n">patterns</span>
 
-<div class="viewcode-block" id="PatternMerger.merge"><a class="viewcode-back" href="../patternmerger.html#patternmerger.PatternMerger.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
+<div class="viewcode-block" id="Merger.merge"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">software</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Software: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">software</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span><span class="p">:</span>
+            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;root&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*client\.\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*new_window\s&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;^\s*new_float\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*hide_edge_borders\s&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;bar&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;^\s*strip_workspace_numbers\s&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*mode\s&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;colors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]</span> <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
+            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;general&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*colors\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*color_\w+\s&quot;</span><span class="p">]}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_config</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Merger.get_supported_software"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger.get_supported_software">[docs]</a>    <span class="k">def</span> <span class="nf">get_supported_software</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;i3&quot;</span><span class="p">:</span>
+            <span class="p">{</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;~/.i3/config&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;i3/config&quot;</span><span class="p">)]},</span>
+                <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
+            <span class="p">{</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;~/.i3status/config&quot;</span><span class="p">,</span>
+                            <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;i3status/config&quot;</span><span class="p">)]}}</span></div>
+
+<div class="viewcode-block" id="Merger.merge_config"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger.merge_config">[docs]</a>    <span class="k">def</span> <span class="nf">merge_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Merge the style of two i3 config files.</span>
 <span class="sd">            Overrides oldconfig.</span>
@@ -156,7 +178,7 @@
 <span class="sd">            :param oldconfig: Path to old config</span>
 <span class="sd">            :param newconfig: Path to merge into old config</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">)</span>
+        <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
 
         <span class="p">(</span><span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">)</span></div>
@@ -284,14 +306,14 @@
 
 <span class="sd">&quot;&quot;&quot; Helper classes &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Match"><a class="viewcode-back" href="../patternmerger.html#patternmerger.Match">[docs]</a><span class="k">class</span> <span class="nc">Match</span><span class="p">:</span>
+<div class="viewcode-block" id="Match"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Match">[docs]</a><span class="k">class</span> <span class="nc">Match</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="n">used_variables</span></div>
 
-<div class="viewcode-block" id="Block"><a class="viewcode-back" href="../patternmerger.html#patternmerger.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
+<div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -300,7 +322,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../patternmerger.html#patternmerger.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">:</span>
+<div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
@@ -339,22 +361,22 @@
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
+            URL_ROOT:'../../',
             VERSION:'0.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
     </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
 
   
 
   
   
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
   
 
   
