@@ -3,6 +3,5 @@ merger module
 
 .. automodule:: merger
     :members:
-    :special-members:
     :undoc-members:
     :show-inheritance:

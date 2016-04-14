@@ -9,7 +9,6 @@ mergers.patternmerger module
 
 .. automodule:: mergers.patternmerger
     :members:
-    :special-members:
     :undoc-members:
     :show-inheritance:
 
@@ -19,6 +18,5 @@ Module contents
 
 .. automodule:: mergers
     :members:
-    :special-members:
     :undoc-members:
     :show-inheritance:

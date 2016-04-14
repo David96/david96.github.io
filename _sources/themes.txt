@@ -3,6 +3,5 @@ themes module
 
 .. automodule:: themes
     :members:
-    :special-members:
     :undoc-members:
     :show-inheritance:
