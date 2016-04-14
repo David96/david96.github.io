@@ -317,26 +317,26 @@
 
 <div class="viewcode-block" id="Match"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Match">[docs]</a><span class="k">class</span> <span class="nc">Match</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
+<div class="viewcode-block" id="Match.__init__"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Match.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="n">used_variables</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="n">used_variables</span></div></div>
 
 <div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<div class="viewcode-block" id="Block.__init__"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Block.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div></div>
 
 <div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+<div class="viewcode-block" id="Variable.__init__"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Variable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="bp">False</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="bp">False</span></div></div>
 
 </pre></div>
 

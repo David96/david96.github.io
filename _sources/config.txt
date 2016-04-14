@@ -3,5 +3,6 @@ config module
 
 .. automodule:: config
     :members:
+    :special-members:
     :undoc-members:
     :show-inheritance:

@@ -3,5 +3,6 @@ i3config module
 
 .. automodule:: i3config
     :members:
+    :special-members:
     :undoc-members:
     :show-inheritance:

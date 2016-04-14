@@ -3,5 +3,6 @@ matcher module
 
 .. automodule:: matcher
     :members:
+    :special-members:
     :undoc-members:
     :show-inheritance:

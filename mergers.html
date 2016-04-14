@@ -153,12 +153,54 @@
 <dt id="mergers.patternmerger.Block">
 <em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Block</code><span class="sig-paren">(</span><em>name</em>, <em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Block" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="mergers.patternmerger.Block.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__doc__': None, '__dict__': &lt;attribute '__dict__' of 'Block' objects&gt;, '__init__': &lt;function Block.__init__ at 0x7f3185b61e18&gt;, '__module__': 'mergers.patternmerger', '__weakref__': &lt;attribute '__weakref__' of 'Block' objects&gt;})</em><a class="headerlink" href="#mergers.patternmerger.Block.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mergers.patternmerger.Block.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Block.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Block.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mergers.patternmerger.Block.__module__">
+<code class="descname">__module__</code><em class="property"> = 'mergers.patternmerger'</em><a class="headerlink" href="#mergers.patternmerger.Block.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mergers.patternmerger.Block.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#mergers.patternmerger.Block.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="mergers.patternmerger.Match">
 <em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Match</code><span class="sig-paren">(</span><em>pattern</em>, <em>line</em>, <em>used_variables</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="mergers.patternmerger.Match.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__doc__': None, '__dict__': &lt;attribute '__dict__' of 'Match' objects&gt;, '__init__': &lt;function Match.__init__ at 0x7f3185b61d90&gt;, '__module__': 'mergers.patternmerger', '__weakref__': &lt;attribute '__weakref__' of 'Match' objects&gt;})</em><a class="headerlink" href="#mergers.patternmerger.Match.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mergers.patternmerger.Match.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>pattern</em>, <em>line</em>, <em>used_variables</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Match.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Match.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mergers.patternmerger.Match.__module__">
+<code class="descname">__module__</code><em class="property"> = 'mergers.patternmerger'</em><a class="headerlink" href="#mergers.patternmerger.Match.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mergers.patternmerger.Match.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#mergers.patternmerger.Match.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -167,6 +209,11 @@
 <dd><p>Bases: <a class="reference internal" href="merger.html#merger.BaseMerger" title="merger.BaseMerger"><code class="xref py py-class docutils literal"><span class="pre">merger.BaseMerger</span></code></a></p>
 <p>Provides merging functionality for two i3 config files.
 Merges only the style parts (identified by regex patterns) from the new file into the old one.</p>
+<dl class="attribute">
+<dt id="mergers.patternmerger.Merger.__module__">
+<code class="descname">__module__</code><em class="property"> = 'mergers.patternmerger'</em><a class="headerlink" href="#mergers.patternmerger.Merger.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mergers.patternmerger.Merger.get_supported_software">
 <code class="descname">get_supported_software</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.get_supported_software"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.get_supported_software" title="Permalink to this definition">¶</a></dt>
@@ -203,6 +250,27 @@ Overrides oldconfig.</p>
 <dt id="mergers.patternmerger.Variable">
 <em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Variable</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="mergers.patternmerger.Variable.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__doc__': None, '__dict__': &lt;attribute '__dict__' of 'Variable' objects&gt;, '__init__': &lt;function Variable.__init__ at 0x7f3185b61ea0&gt;, '__module__': 'mergers.patternmerger', '__weakref__': &lt;attribute '__weakref__' of 'Variable' objects&gt;})</em><a class="headerlink" href="#mergers.patternmerger.Variable.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mergers.patternmerger.Variable.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Variable.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Variable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mergers.patternmerger.Variable.__module__">
+<code class="descname">__module__</code><em class="property"> = 'mergers.patternmerger'</em><a class="headerlink" href="#mergers.patternmerger.Variable.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mergers.patternmerger.Variable.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#mergers.patternmerger.Variable.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

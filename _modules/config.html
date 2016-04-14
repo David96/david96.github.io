@@ -143,12 +143,12 @@
 
 <div class="viewcode-block" id="Config"><a class="viewcode-back" href="../config.html#config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
     <span class="n">_instance</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.__new__"><a class="viewcode-back" href="../config.html#config.Config.__new__">[docs]</a>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">_instance</span><span class="p">,</span> <span class="n">class_</span><span class="p">):</span>
             <span class="n">class_</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">class_</span><span class="o">.</span><span class="n">_instance</span>
+        <span class="k">return</span> <span class="n">class_</span><span class="o">.</span><span class="n">_instance</span></div>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.__init__"><a class="viewcode-back" href="../config.html#config.Config.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span>
         <span class="k">except</span><span class="p">:</span>
@@ -156,7 +156,7 @@
                 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">CONFIG_PATH</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">CONFIG_FILE</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">CONFIG_FILE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Config.set"><a class="viewcode-back" href="../config.html#config.Config.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
