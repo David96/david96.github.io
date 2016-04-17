@@ -143,32 +143,48 @@
 
 <div class="viewcode-block" id="Merger"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger">[docs]</a><span class="k">class</span> <span class="nc">Merger</span><span class="p">(</span><span class="n">BaseMerger</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Provides merging functionality for two i3 config files.</span>
-<span class="sd">        Merges only the style parts (identified by regex patterns) from the new file into the old one.</span>
+<span class="sd">        Provides merging functionality for two config files based on some patterns.</span>
+<span class="sd">        New software support can easily be added within :func:`merge`.</span>
+<span class="sd">        Don&#39;t forget to also declare support for the new software in</span>
+<span class="sd">        :func:`get_supported_software`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Merger.merge"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">software</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Merges two config files based on some patterns.</span>
+
+<span class="sd">            :param software: the software to merge</span>
+<span class="sd">            :param name: the theme filename</span>
+<span class="sd">            :param oldconfig: path to the old reference config</span>
+<span class="sd">            :param newconfig: path to the new config</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Software: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">software</span><span class="p">)</span>
-        <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">?.*</span><span class="se">\&quot;</span><span class="s2">?)?\s*{&quot;</span>
-        <span class="n">pattern_close</span> <span class="o">=</span> <span class="s2">&quot;\s*}\s*&quot;</span>
-        <span class="n">nested</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span><span class="p">:</span>
-            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;root&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*client\.\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*new_window\s&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;^\s*new_float\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*hide_edge_borders\s&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;bar&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;^\s*strip_workspace_numbers\s&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*mode\s&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;colors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]</span> <span class="p">}</span>
-        <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
-            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;general&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*colors\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*color_\w+\s&quot;</span><span class="p">]}</span>
+        <span class="n">pattern_open</span> <span class="o">=</span> <span class="n">pattern_close</span> <span class="o">=</span> <span class="n">pattern_variable</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span> <span class="ow">or</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
+            <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">?.*</span><span class="se">\&quot;</span><span class="s2">?)?\s*{&quot;</span>
+            <span class="n">pattern_close</span> <span class="o">=</span> <span class="s2">&quot;\s*}\s*&quot;</span>
+            <span class="n">pattern_variable</span> <span class="o">=</span> <span class="s2">&quot;^set\s+\$(\w+)\s+(.+)&quot;</span><span class="p">;</span>
+            <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span><span class="p">:</span>
+                <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;root&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*client\.\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*new_window\s&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;^\s*new_float\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*hide_edge_borders\s&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;bar&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;^\s*strip_workspace_numbers\s&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*mode\s&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;colors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]</span> <span class="p">}</span>
+            <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
+                <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;general&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*colors\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*color_\w+\s&quot;</span><span class="p">]}</span>
         <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;termite&quot;</span><span class="p">:</span>
             <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;colors&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]</span> <span class="p">}</span>
             <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;\s*\[([^\]]*)\]&quot;</span>
             <span class="n">pattern_close</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">pattern_variable</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="n">nested</span> <span class="o">=</span> <span class="bp">False</span>
 
-        <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span> <span class="n">pattern_close</span><span class="p">,</span> <span class="n">nested</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">)</span></div>
+        <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span> <span class="n">pattern_close</span><span class="p">,</span> <span class="n">pattern_variable</span><span class="p">)</span>
+
+        <span class="p">(</span><span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Merger.get_supported_software"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger.get_supported_software">[docs]</a>    <span class="k">def</span> <span class="nf">get_supported_software</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -179,18 +195,6 @@
                             <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;i3status/config&quot;</span><span class="p">)]},</span>
                 <span class="s2">&quot;termite&quot;</span><span class="p">:</span>
             <span class="p">{</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;termite/config&quot;</span><span class="p">)</span> <span class="p">]}}</span></div>
-
-<div class="viewcode-block" id="Merger.merge_config"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Merger.merge_config">[docs]</a>    <span class="k">def</span> <span class="nf">merge_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Merge the style of two i3 config files.</span>
-<span class="sd">            Overrides oldconfig.</span>
-
-<span class="sd">            :param name: name of the file in the theme</span>
-<span class="sd">            :param oldconfig: Path to old config</span>
-<span class="sd">            :param newconfig: Path to merge into old config</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="p">(</span><span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">newconfig</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_config</span><span class="p">(</span><span class="n">matcher</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">oldconfig</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__get_used_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -317,26 +321,26 @@
 
 <div class="viewcode-block" id="Match"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Match">[docs]</a><span class="k">class</span> <span class="nc">Match</span><span class="p">:</span>
 
-<div class="viewcode-block" id="Match.__init__"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Match.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">used_variables</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="n">used_variables</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="n">used_variables</span></div>
 
 <div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
 
-<div class="viewcode-block" id="Block.__init__"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Block.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">:</span>
-<div class="viewcode-block" id="Variable.__init__"><a class="viewcode-back" href="../../mergers.html#mergers.patternmerger.Variable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="bp">False</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="bp">False</span></div>
 
 </pre></div>
 

@@ -165,8 +165,10 @@
 <dt id="mergers.patternmerger.Merger">
 <em class="property">class </em><code class="descclassname">mergers.patternmerger.</code><code class="descname">Merger</code><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="merger.html#merger.BaseMerger" title="merger.BaseMerger"><code class="xref py py-class docutils literal"><span class="pre">merger.BaseMerger</span></code></a></p>
-<p>Provides merging functionality for two i3 config files.
-Merges only the style parts (identified by regex patterns) from the new file into the old one.</p>
+<p>Provides merging functionality for two config files based on some patterns.
+New software support can easily be added within <a class="reference internal" href="#mergers.patternmerger.Merger.merge" title="mergers.patternmerger.Merger.merge"><code class="xref py py-func docutils literal"><span class="pre">merge()</span></code></a>.
+Don&#8217;t forget to also declare support for the new software in
+<a class="reference internal" href="#mergers.patternmerger.Merger.get_supported_software" title="mergers.patternmerger.Merger.get_supported_software"><code class="xref py py-func docutils literal"><span class="pre">get_supported_software()</span></code></a></p>
 <dl class="method">
 <dt id="mergers.patternmerger.Merger.get_supported_software">
 <code class="descname">get_supported_software</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.get_supported_software"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.get_supported_software" title="Permalink to this definition">¶</a></dt>
@@ -175,21 +177,16 @@ Merges only the style parts (identified by regex patterns) from the new file int
 <dl class="method">
 <dt id="mergers.patternmerger.Merger.merge">
 <code class="descname">merge</code><span class="sig-paren">(</span><em>software</em>, <em>name</em>, <em>oldconfig</em>, <em>newconfig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.merge" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mergers.patternmerger.Merger.merge_config">
-<code class="descname">merge_config</code><span class="sig-paren">(</span><em>matcher</em>, <em>oldconfig</em>, <em>newconfig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mergers/patternmerger.html#Merger.merge_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mergers.patternmerger.Merger.merge_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merge the style of two i3 config files.
-Overrides oldconfig.</p>
+<dd><p>Merges two config files based on some patterns.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> &#8211; name of the file in the theme</li>
-<li><strong>oldconfig</strong> &#8211; Path to old config</li>
-<li><strong>newconfig</strong> &#8211; Path to merge into old config</li>
+<li><strong>software</strong> &#8211; the software to merge</li>
+<li><strong>name</strong> &#8211; the theme filename</li>
+<li><strong>oldconfig</strong> &#8211; path to the old reference config</li>
+<li><strong>newconfig</strong> &#8211; path to the new config</li>
 </ul>
 </td>
 </tr>

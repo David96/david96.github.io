@@ -147,8 +147,8 @@
 <span class="sd">        Provides basic matching functionality for simple config files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Matcher.__init__"><a class="viewcode-back" href="../matcher.html#matcher.Matcher.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span>
-                        <span class="n">pattern_close</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">nested_blocks</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Matcher.__init__"><a class="viewcode-back" href="../matcher.html#matcher.Matcher.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span> <span class="n">pattern_close</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                    <span class="n">pattern_variable</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            :param blocks: the blocks to match, format:</span>
 <span class="sd">                { &quot;blockname&quot; : [&quot;patterns&quot;, &quot;to&quot;, &quot;match&quot;], &quot;anotherblock&quot;: [ ...] }</span>
@@ -161,13 +161,10 @@
 <span class="sd">            :param nested_blocks: Whether nested blocks have to be supported.</span>
 <span class="sd">                Requires pattern_close to be set.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="n">nested_blocks</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pattern_close</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;pattern_close must be defined when nested_blocks=True&quot;</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">pattern_open</span> <span class="o">=</span> <span class="n">pattern_open</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pattern_close</span> <span class="o">=</span> <span class="n">pattern_close</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nested_blocks</span> <span class="o">=</span> <span class="n">nested_blocks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nested_blocks</span> <span class="o">=</span> <span class="p">(</span><span class="n">pattern_close</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pattern_variable</span> <span class="o">=</span> <span class="n">pattern_variable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">match_level</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matching_blocks</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;root&quot;</span> <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">blocks</span></div>
@@ -193,34 +190,34 @@
             <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_OPEN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern_open</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">matchObj</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
 
         <span class="n">current_block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matching_blocks</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">match_level</span><span class="p">]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern_close</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested_blocks</span><span class="p">:</span>
             <span class="n">matchObj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern_close</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">matchObj</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested_blocks</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">match_level</span> <span class="o">-=</span> <span class="mi">1</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">matching_blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">matching_blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">match_level</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">matching_blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
                 <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern_close</span><span class="p">,</span>
                                         <span class="n">current_block</span><span class="p">,</span> <span class="n">matchObj</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
 
-        <span class="n">matchObj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^set\s+\$(\w+)\s+(.+)&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">matchObj</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_VARIABLE</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span> <span class="n">matchObj</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern_variable</span><span class="p">:</span>
+            <span class="n">matchObj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern_variable</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">matchObj</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_VARIABLE</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span>
+                                            <span class="n">matchObj</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
 
         <span class="k">if</span> <span class="n">current_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">current_block</span><span class="p">]:</span>
                 <span class="n">matchObj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">matchObj</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_LINE</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span> <span class="n">matchObj</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
+                    <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_LINE</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span>
+                                            <span class="n">matchObj</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">MatchObj</span><span class="p">(</span><span class="n">MATCH_NONE</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="MatchObj"><a class="viewcode-back" href="../matcher.html#matcher.MatchObj">[docs]</a><span class="k">class</span> <span class="nc">MatchObj</span><span class="p">:</span>
-<div class="viewcode-block" id="MatchObj.__init__"><a class="viewcode-back" href="../matcher.html#matcher.MatchObj.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">current_block</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">match_type</span> <span class="o">=</span> <span class="n">match_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_block</span> <span class="o">=</span> <span class="n">current_block</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="n">groups</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="n">groups</span></div>
 </pre></div>
 
            </div>
