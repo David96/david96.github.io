@@ -158,8 +158,6 @@
 <span class="sd">            :param oldconfig: path to the old reference config</span>
 <span class="sd">            :param newconfig: path to the new config</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Software: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">software</span><span class="p">)</span>
         <span class="n">pattern_open</span> <span class="o">=</span> <span class="n">pattern_close</span> <span class="o">=</span> <span class="n">pattern_variable</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span> <span class="ow">or</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
             <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">?.*</span><span class="se">\&quot;</span><span class="s2">?)?\s*{&quot;</span>
