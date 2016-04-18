@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../matcher.html">matcher module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../merger.html">merger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mergers.html">mergers package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests.html">tests package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../themes.html">themes module</a></li>
 </ul>
 
@@ -176,7 +177,9 @@
             <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;colors&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]</span> <span class="p">}</span>
             <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;\s*\[([^\]]*)\]&quot;</span>
         <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
-            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;root&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;^\s*\w+\.(color\d+|background|foreground)&quot;</span> <span class="p">]</span> <span class="p">}</span>
+            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;root&quot;</span> <span class="p">:</span>
+                    <span class="p">[</span> <span class="s2">&quot;^\s*\w+[\.\*](color\d+|background|foreground|(cursor&quot;</span> <span class="o">+</span>
+                    <span class="s2">&quot;|scroll|highlight|highlightText)Color)&quot;</span> <span class="p">]</span> <span class="p">}</span>
 
         <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span> <span class="n">pattern_close</span><span class="p">,</span> <span class="n">pattern_variable</span><span class="p">)</span>
 

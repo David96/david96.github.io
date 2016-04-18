@@ -1,0 +1,22 @@
+tests package
+=============
+
+Submodules
+----------
+
+tests.i3 module
+---------------
+
+.. automodule:: tests.i3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tests
+    :members:
+    :undoc-members:
+    :show-inheritance:

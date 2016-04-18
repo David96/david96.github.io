@@ -9,4 +9,5 @@
    matcher
    merger
    mergers
+   tests
    themes
