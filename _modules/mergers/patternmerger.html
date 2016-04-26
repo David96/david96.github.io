@@ -183,6 +183,11 @@
             <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;root&quot;</span> <span class="p">:</span>
                     <span class="p">[</span> <span class="s2">&quot;^\s*\w*[\.\*](color\d+|background|foreground|(cursor&quot;</span> <span class="o">+</span>
                     <span class="s2">&quot;|scroll|highlight|highlightText)Color)&quot;</span> <span class="p">]</span> <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;dunst&quot;</span><span class="p">:</span>
+            <span class="n">colours</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;^\s*color\s*=&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*foreground\s*=&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*background\s*=&quot;</span><span class="p">]</span>
+            <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;\s*\[([^\]]*)\]&quot;</span>
+            <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;urgency_low&quot;</span> <span class="p">:</span> <span class="n">colours</span><span class="p">,</span> <span class="s2">&quot;urgency_normal&quot;</span> <span class="p">:</span> <span class="n">colours</span><span class="p">,</span>
+                    <span class="s2">&quot;urgency_critical&quot;</span> <span class="p">:</span> <span class="n">colours</span><span class="p">,</span> <span class="s2">&quot;frame&quot;</span> <span class="p">:</span> <span class="n">colours</span> <span class="p">}</span>
 
         <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span> <span class="n">pattern_close</span><span class="p">,</span> <span class="n">pattern_variable</span><span class="p">)</span>
 
@@ -199,7 +204,9 @@
                 <span class="s2">&quot;termite&quot;</span><span class="p">:</span>
             <span class="p">{</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;termite/config&quot;</span><span class="p">)</span> <span class="p">]},</span>
                 <span class="s2">&quot;X&quot;</span><span class="p">:</span>
-            <span class="p">{</span> <span class="s2">&quot;Xresources&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;~/.Xresources&quot;</span> <span class="p">]</span> <span class="p">}}</span></div>
+            <span class="p">{</span> <span class="s2">&quot;Xresources&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;~/.Xresources&quot;</span> <span class="p">]</span> <span class="p">},</span>
+                <span class="s2">&quot;dunst&quot;</span><span class="p">:</span>
+            <span class="p">{</span> <span class="s2">&quot;dunstrc&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_config_home</span><span class="p">,</span> <span class="s2">&quot;dunst/dunstrc&quot;</span><span class="p">)</span> <span class="p">]}}</span></div>
 
     <span class="k">def</span> <span class="nf">__get_used_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
