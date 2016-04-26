@@ -163,7 +163,8 @@
         <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span> <span class="ow">or</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3status&quot;</span><span class="p">:</span>
             <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;^\s*(\w+)\s*(</span><span class="se">\&quot;</span><span class="s2">?.*</span><span class="se">\&quot;</span><span class="s2">?)?\s*{&quot;</span>
             <span class="n">pattern_close</span> <span class="o">=</span> <span class="s2">&quot;\s*}\s*&quot;</span>
-            <span class="n">pattern_variable</span> <span class="o">=</span> <span class="s2">&quot;^set\s+\$(\w+)\s+(.+)&quot;</span><span class="p">;</span>
+            <span class="n">pattern_variable</span> <span class="o">=</span> <span class="s2">&quot;^set\s+\$(\w+)\s+(.+)&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">variable_use</span> <span class="o">=</span> <span class="s2">&quot;$</span><span class="si">%s</span><span class="s2">&quot;</span>
             <span class="k">if</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;i3&quot;</span><span class="p">:</span>
                 <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s2">&quot;root&quot;</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;^\s*font\s&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*client\.\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;^\s*new_window\s&quot;</span><span class="p">,</span>
@@ -177,8 +178,10 @@
             <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;colors&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">]</span> <span class="p">}</span>
             <span class="n">pattern_open</span> <span class="o">=</span> <span class="s2">&quot;\s*\[([^\]]*)\]&quot;</span>
         <span class="k">elif</span> <span class="n">software</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
+            <span class="n">pattern_variable</span> <span class="o">=</span> <span class="s2">&quot;#define\s+(\w+)\s+(.*)&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">variable_use</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span>
             <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;root&quot;</span> <span class="p">:</span>
-                    <span class="p">[</span> <span class="s2">&quot;^\s*\w+[\.\*](color\d+|background|foreground|(cursor&quot;</span> <span class="o">+</span>
+                    <span class="p">[</span> <span class="s2">&quot;^\s*\w*[\.\*](color\d+|background|foreground|(cursor&quot;</span> <span class="o">+</span>
                     <span class="s2">&quot;|scroll|highlight|highlightText)Color)&quot;</span> <span class="p">]</span> <span class="p">}</span>
 
         <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">patterns</span><span class="p">,</span> <span class="n">pattern_open</span><span class="p">,</span> <span class="n">pattern_close</span><span class="p">,</span> <span class="n">pattern_variable</span><span class="p">)</span>
@@ -210,7 +213,7 @@
             <span class="c1"># at the same position and if in doubt take the longer variable.</span>
             <span class="c1"># See https://github.com/David96/i3config_patcher/issues/6</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">position</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;$</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">variable</span><span class="p">)</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variable_use</span> <span class="o">%</span> <span class="n">variable</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">variable_matches</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Found conflicting variable usage of </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2"> at </span><span class="si">%d</span><span class="s2"> in </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                             <span class="n">variable</span><span class="p">,</span> <span class="n">variable_matches</span><span class="p">[</span><span class="n">position</span><span class="p">],</span> <span class="n">position</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
