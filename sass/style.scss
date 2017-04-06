@@ -93,10 +93,10 @@ nav {
         @include user-select(none);
         z-index: 425;
     }
-    $hamburger-width: 35px;
-    $hamburger-distance: 10px;
-    $hamburger-arrow-length: 25px;
-    $hamburger-height: 3px;
+    $hamburger-width: 25px;
+    $hamburger-distance: 7px;
+    $hamburger-arrow-length: 18px;
+    $hamburger-height: 2px;
     $hamburger-border-radius: 2px;
     .hamburger, .hamburger:before, .hamburger:after {
         display: block;
